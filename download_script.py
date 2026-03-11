@@ -6,12 +6,12 @@ from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TARGET_EXTENSIONS = (".epw", ".ddy", ".stat")
-
+OUTPUT_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "weather-files")
 
 def download_all_weather_files(max_workers: int = 10):
     base_url = "https://climate.onebuilding.org/WMO_Region_4_North_and_Central_America/"
 
-    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "workflow-src", "weather-calibration")
+    output_dir = OUTPUT_DIRECTORY
     os.makedirs(output_dir, exist_ok=True)
 
     countries = ["CAN", "USA"]
