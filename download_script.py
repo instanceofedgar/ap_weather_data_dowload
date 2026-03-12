@@ -2,11 +2,12 @@ import os
 import io
 import zipfile
 import requests
+from pathlib import Path
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TARGET_EXTENSIONS = (".epw", ".ddy", ".stat")
-OUTPUT_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "weather-files")
+OUTPUT_DIRECTORY = Path(__file__).parent / "weather-files"
 
 def download_all_weather_files(max_workers: int = 10):
     base_url = "https://climate.onebuilding.org/WMO_Region_4_North_and_Central_America/"
@@ -46,7 +47,7 @@ def download_all_weather_files(max_workers: int = 10):
 
         for href in zip_links:
             zip_url = f"{base_url}{url_key[country]}/{href}"
-            base_name = os.path.basename(href).replace(".zip", "")
+            base_name = .path.basename(href).replace(".zip", "")
             jobs.append((zip_url, base_name))
 
     # skip only if ALL target files already exist
